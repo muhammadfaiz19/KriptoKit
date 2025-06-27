@@ -13,6 +13,7 @@ import { toast } from 'sonner';
 import { ALGORITHMS } from '@/lib/constants';
 import { formSchema, EncryptionFormValues } from '@/lib/schemas';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { motion } from 'framer-motion';
 
 export default function Home() {
   const [result, setResult] = useState('');
@@ -26,7 +27,7 @@ export default function Home() {
       algorithm: 'aes',
       text: '',
       key: '',
-      operation: 'encrypt'
+      operation: 'encrypt',
     },
   });
 
@@ -95,36 +96,63 @@ export default function Home() {
   };
 
   return (
-    <main className="container mx-auto px-4 py-6 md:py-12 lg:py-16">
-      <header className="flex flex-col sm:flex-row items-center justify-between mb-8 md:mb-12 gap-4">
+    <motion.main
+      className="container max-w-7xl mx-auto px-4 py-6 md:py-12 lg:py-16"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <motion.header
+        className="flex flex-col sm:flex-row items-center justify-between mb-8 md:mb-12 gap-4"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+      >
         <div className="text-center sm:text-left">
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
+          <motion.h1
+            className="text-3xl md:text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
             KriptoKit
-          </h1>
-          <p className="mt-2 text-muted-foreground text-sm md:text-base">
+          </motion.h1>
+          <motion.p
+            className="mt-2 text-muted-foreground text-sm md:text-base"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
             Alat enkripsi & dekripsi modern, cepat, dan aman.
-          </p>
+          </motion.p>
         </div>
         <ThemeToggle />
-      </header>
+      </motion.header>
 
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 md:gap-8">
-        <div className="lg:col-span-3 space-y-6 md:space-y-8">
-          <EncryptionForm
-            form={form}
-            onSubmit={handleSubmit}
-            isLoading={isLoading}
-          />
+      <motion.div
+        className="grid grid-cols-1 lg:grid-cols-5 gap-6 md:gap-8"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+      >
+        <motion.div
+          className="lg:col-span-3 space-y-6 md:space-y-8"
+          initial={{ x: -20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        >
+          <EncryptionForm form={form} onSubmit={handleSubmit} isLoading={isLoading} />
           {(result || isLoading) && (
-            <ResultDisplay
-              result={result}
-              onReset={handleResetResult}
-              timeTaken={timeTaken}
-            />
+            <ResultDisplay result={result} onReset={handleResetResult} timeTaken={timeTaken} />
           )}
-        </div>
+        </motion.div>
 
-        <div className="lg:col-span-2">
+        <motion.div
+          className="lg:col-span-2"
+          initial={{ x: 20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+        >
           <div className="lg:sticky lg:top-16">
             <EncryptionHistory
               history={history}
@@ -132,14 +160,19 @@ export default function Home() {
               onItemClick={handleHistoryItemClick}
             />
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
-      <footer className="mt-12 md:mt-16 py-6 text-center text-sm text-muted-foreground">
+      <motion.footer
+        className="mt-12 md:mt-16 py-6 text-center text-sm text-muted-foreground"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.7 }}
+      >
         <p>
           © {new Date().getFullYear()}{" "}
           <a
-            href="https://github.com/muhammadfaiz19"
+            href="https://github.com/mあなたのgithub"
             target="_blank"
             rel="noopener noreferrer"
             className="underline underline-offset-4 hover:text-primary transition-colors"
@@ -147,7 +180,7 @@ export default function Home() {
             Muhammad Faiz
           </a>. All rights reserved.
         </p>
-      </footer>
-    </main>
+      </motion.footer>
+    </motion.main>
   );
 }
