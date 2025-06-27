@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   description:
     "Enkripsi dan dekripsi teks dengan algoritma kriptografi klasik dan modern secara mudah dan aman. Interface yang elegan dengan animasi smooth dan pengalaman pengguna yang luar biasa.",
   icons: {
-    icon: "/favicon.svg",
+    icon: "/favicon.ico",
   },
   keywords: ["kriptografi", "enkripsi", "dekripsi", "keamanan", "cipher", "aes", "rsa"],
   authors: [{ name: "Muhammad Faiz" }],
