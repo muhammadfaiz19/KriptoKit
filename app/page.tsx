@@ -172,7 +172,7 @@ export default function Home() {
         <p>
           © {new Date().getFullYear()}{" "}
           <a
-            href="https://github.com/mあなたのgithub"
+            href="https://github.com/muhammadfaiz19"
             target="_blank"
             rel="noopener noreferrer"
             className="underline underline-offset-4 hover:text-primary transition-colors"
