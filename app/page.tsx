@@ -1,20 +1,18 @@
-
 'use client';
 
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-
-import { EncryptionForm } from '../components/EncryptionForm';
-import { ResultDisplay } from '../components/ResultDisplay';
-import { EncryptionHistory } from '../components/EncryptionHistory';
-import { ThemeToggle } from '../components/ThemeToggle';
-import { encryptDecrypt } from '../lib/encryption';
-import { HistoryItem } from '../lib/types';
+import { EncryptionForm } from '@/components/EncryptionForm';
+import { ResultDisplay } from '@/components/ResultDisplay';
+import { EncryptionHistory } from '@/components/EncryptionHistory';
+import { ThemeToggle } from '@/components/ThemeToggle';
+import { encryptDecrypt } from '@/lib/encryption';
+import { HistoryItem } from '@/lib/types';
 import { toast } from 'sonner';
-import { ALGORITHMS } from '../lib/constants';
-import { useLocalStorage } from '../hooks/useLocalStorage';
-import { formSchema, EncryptionFormValues } from '../lib/schemas';
+import { ALGORITHMS } from '@/lib/constants';
+import { formSchema, EncryptionFormValues } from '@/lib/schemas';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 export default function Home() {
   const [result, setResult] = useState('');
@@ -65,7 +63,7 @@ export default function Home() {
         if (error instanceof Error) {
           toast.error(error.message);
         } else {
-          toast.error('Terjadi kesalahan yang tidak diketahui saat memproses.');
+          toast.error('Terjadi kesalahan saat memproses.');
         }
         console.error(error);
       } finally {
@@ -93,15 +91,18 @@ export default function Home() {
   const handleResetResult = () => {
     setResult('');
     setTimeTaken('0');
+    form.reset();
   };
 
   return (
-    <main className="container mx-auto px-4 py-6 md:py-8">
-      <header className="flex items-center justify-between mb-6 md:mb-8">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">KriptoKit</h1>
-          <p className="text-muted-foreground text-sm sm:text-base">
-            Alat enkripsi & dekripsi serbaguna.
+    <main className="container mx-auto px-4 py-6 md:py-12 lg:py-16">
+      <header className="flex flex-col sm:flex-row items-center justify-between mb-8 md:mb-12 gap-4">
+        <div className="text-center sm:text-left">
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
+            KriptoKit
+          </h1>
+          <p className="mt-2 text-muted-foreground text-sm md:text-base">
+            Alat enkripsi & dekripsi modern, cepat, dan aman.
           </p>
         </div>
         <ThemeToggle />
@@ -124,28 +125,29 @@ export default function Home() {
         </div>
 
         <div className="lg:col-span-2">
-          <EncryptionHistory
-            history={history}
-            onClear={handleClearHistory}
-            onItemClick={handleHistoryItemClick}
-          />
+          <div className="lg:sticky lg:top-16">
+            <EncryptionHistory
+              history={history}
+              onClear={handleClearHistory}
+              onItemClick={handleHistoryItemClick}
+            />
+          </div>
         </div>
       </div>
 
-      <footer className="mt-10 md:mt-16 py-6 text-center text-sm text-muted-foreground">
-  <p>
-    © {new Date().getFullYear()}{" "}
-    <a
-      href="https://github.com/muhammadfaiz19"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="underline underline-offset-4 hover:text-foreground transition-colors"
-    >
-      Muhammad Faiz
-    </a>. All rights reserved.
-  </p>
-</footer>
-
+      <footer className="mt-12 md:mt-16 py-6 text-center text-sm text-muted-foreground">
+        <p>
+          © {new Date().getFullYear()}{" "}
+          <a
+            href="https://github.com/muhammadfaiz19"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-4 hover:text-primary transition-colors"
+          >
+            Muhammad Faiz
+          </a>. All rights reserved.
+        </p>
+      </footer>
     </main>
   );
 }
